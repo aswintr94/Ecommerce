@@ -1,0 +1,87 @@
+{% extends 'login.html' %}
+
+{% block content %}
+<style>
+    .login-block{
+        width: 800px;
+        height: 800px;
+        margin: 8em 0em 0em 33em;
+        color: #05486b;
+        /* border-style: solid;
+        border-color: cornflowerblue;
+        border-radius: 10px; */
+    }
+    .container{
+        width: 80%;
+        height: 80%;
+    }
+</style>
+<div class="login-block">
+    <p class="text-center mt-5" style="font-size: 25px;">REGISTER</p>
+    <div class="container mt-5">
+        <form method="POST" onsubmit="return Validate()">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleInputFirstname1" class="form-label">First name</label>
+                <input type="text" class="form-control" name='firstname' id="exampleInputFirstname1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputLastname1" class="form-label">Last name</label>
+                <input type="text" class="form-control" name='lastname' id="exampleInputLastname1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input type="email" class="form-control" name='email' id="exampleInputEmail1">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputUsername1" class="form-label">Username</label>
+              <input type="text" class="form-control" name=username id="exampleInputUsername1">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" name='password1' id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword2" class="form-label">Password</label>
+                <input type="password" class="form-control" name='password2' id="exampleInputPassword2">
+            </div>
+            
+            <div class="text-center mt-5">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+            <div class="form-text">Already have an account?  <a href="{% url 'login' %}">Login here</a></div>
+            
+          </form>
+    </div>
+    
+</div>
+
+<script>
+        function Validate()
+        {
+            if (document.getElementById('exampleInputFirstname1').value == ""){
+                alert('first name required');
+                return false;
+            }
+            else if (document.getElementById('exampleInputEmail1').value == ""){
+                alert('email required');
+                return false;
+            }
+            else if (document.getElementById('exampleInputUsername1').value == ""){
+                alert('username required');
+                return false;
+            }
+            else if (document.getElementById('exampleInputPassword1').value == ""){
+                alert('password required');
+                return false;
+            }
+            else if (document.getElementById('exampleInputPassword1').value != document.getElementById('exampleInputPassword2').value)
+            {
+                alert('Passwords doesnot match');
+                return false;
+            }
+        }
+    
+</script>
+
+{% endblock %}

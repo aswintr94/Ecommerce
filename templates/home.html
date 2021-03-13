@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<style>
+    body{
+        background-color: cornsilk;
+    }
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" style="margin-left: 0px; color: white;" href="{% url 'home' %}">M-KART</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              {% if user.is_superuser %}
+                <li class="nav-item" style="margin-left: 20px;">
+                    <a class="nav-link active" style="color: white;" aria-current="page" href="{% url 'add_product' %}">Products</a>
+                </li>
+                <li class="nav-item" style="margin-left: 10px;">
+                    <a class="nav-link" style="color: white;" href="{% url 'add_offer' %}">Offer</a>
+                </li>
+              {% endif %}
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" style="color: white;" href="{% url 'view_cart' %}">Cart</a>
+                </li>
+                <li class="nav-item" style="margin-left: 95em;">
+                    <a class="nav-link" style="color: white;" href="{% url 'logout' %}">Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item" style="margin-left: 95em;">
+                    <a class="nav-link" style="color: white;" href="{% url 'login' %}">Login</a>
+                </li>
+              {% endif %}
+            </ul>
+            
+          </div>
+
+        </div>
+      </nav>
+
+      {% block content %}
+      <div class="container">
+        <div class="row">
+          {% if products %}
+          {% for product in products %}
+          
+            <div class="card m-5 col-md-3" style="width: 18rem;">
+              <img src="{{product.fk_product.img_image.url}}" style="height: 335px;" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{product.strBrand}} {{product.strModel}}</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{product.strRam}} GB RAM</li>
+                <li class="list-group-item">{{product.strCamera}}</li>
+                <li class="list-group-item">Rs. {{product.intPrice}}</li>
+              </ul>
+              <div class="card-body text-center">
+                <a href="{% url 'view_product' int_id=product.intProductId %}" class="card-link">View</a>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+        </div>
+      </div>
+
+
+      
+      {% endblock %}
+</body>
+</html>

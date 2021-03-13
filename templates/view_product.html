@@ -1,0 +1,48 @@
+{% extends 'home.html' %}
+{% block title %} View | {{product.str_brand}} {{product.str_model}} {% endblock %}
+{% block content %}
+
+    <style>
+        .container{
+            background-color: white;
+            margin-top: 50px;
+        }
+        .cart-button{
+            width: 240px;
+            height: 60px;
+            background-color: orange;
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-family: none;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 m-3">
+                <img src="{{product.img_image.url}}" style="width: 350px; height: 700px;" alt="No Image">
+            </div>
+            <div class="col-md-5" style="margin-top: 10px;">
+                <h4>{{product.str_brand}} {{product.str_model}}</h4>
+                {% if offer.int_offer_percent == 0 %}
+                <h3 class="mt-4"><b>Rs. {{product.int_price}} only</b></h3>
+                {% else %}
+                <h5 class="mt-4"><del>Rs. {{product.int_price}} only</del></h5>
+                <p>Offer price: <span style="font-size: 25px;"><b>Rs. {{offer.int_offer_price}} only</b></span></p>
+                
+                {% endif %}
+                <div class="mt-4">
+                    <p>> {{product.str_ram}} GB RAM</p>
+                    <p>> {{product.str_memory}} GB internal storage</p>
+                    <p>> {{product.str_camera}}</p>
+                    <p>> {{product.str_battery}}</p>
+                    <p>> {{product.str_processor}}</p>
+                </div>
+                <a href="{% url 'add_to_cart' pro_id=product.id %}"><button class="cart-button">ADD TO CART</button></a>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

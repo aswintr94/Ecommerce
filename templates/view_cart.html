@@ -1,0 +1,75 @@
+{% extends 'home.html' %}
+{% block title %} My cart {% endblock %}
+{% block content %}
+
+<style>
+    .total{
+        width: 300px;
+        height: 300px;
+        margin: 50px 20px 0px 750px;
+        padding: 20px;
+        background-color: rosybrown;
+    }
+    span{
+        margin-left: 43px;
+    }
+    .empty{
+      color: red;
+      margin: 250px 100px 100px 700px;
+      font-size: 25px;
+      font-family: auto;
+    }
+</style>
+
+{% if cart %}
+<div class="container">
+    <div class="text-center">
+        <h3 style="margin-top: 40px; margin-bottom: 40px;">Welcome to your Cart</h3>
+    </div>
+    {% if messages %}
+            {% for message in messages %}
+            {% if message.tags %}
+            <div style="background-color: blue;" class="alert alert-{{ messages.tags }} alert-dismissible" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+    {% endif %}
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Model</th>
+            <th scope="col">price</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for product in cart %}
+          <tr>
+            <th scope="row"><img src="{{product.fk_product.img_image.url}}" style="width: 50px; height: 80px;" alt="..."></th>
+            <td>{{product.fk_product.str_brand}} {{product.fk_product.str_model}}</td>
+            <td>Rs. {{product.fk_offer.int_offer_price}}</td>
+            <td><a href="{% url 'remove_item' item_id=product.id %}" onclick="return confirm('Are you sure?')">Remove</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+    <div class="total">
+        <p>Total amount: <span>Rs. {{amount.int_total}}</span> </p>
+        {% if amount.discount > 0 %}
+        <p>Discount: <span style="margin-left: 90px;">{{ amount.discount}} %</span> </p>
+        <hr>
+        <p>Final amount: <span>Rs. {{amount.final_amount}}</span> </p>
+        {% endif %}
+    </div>   
+    
+</div>
+{% else %}
+<p class="empty">Your cart is empty. Please add something to cart!</p>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'home.html' %}
+{% block title %} Add product {% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="mt-3 mb-4 text-center">
+        <h3>Add a new product</h3>
+    </div>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label for="BrandInput" class="form-label">Brand</label>
+                <input type="text" class="form-control" name='strBrand' id="BrandInput">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="ModelInput" class="form-label">Model</label>
+                <input type="text" class="form-control" name='strModel' id="ModelInput">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="RamInput" class="form-label">RAM</label>
+                <input type="text" class="form-control" name='strRam' id="RamInput">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="MemoryInput" class="form-label">Memory</label>
+                <input type="text" class="form-control" name='strMemory' id="MemoryInput">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="CameraInput" class="form-label">Camera</label>
+                <input type="text" class="form-control" name='strCamera' id="CameraInput">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="BatteryInput" class="form-label">Battery</label>
+                <input type="text" class="form-control" name='strBattery' id="BatteryInput">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="ProcessorInput" class="form-label">Processor</label>
+                <input type="text" class="form-control" name='strProcessor' id="ProcessorInput">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="PriceInput" class="form-label">Price</label>
+                <input type="text" class="form-control" name='strPrice' id="PriceInput">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="ImageInput" class="form-label">Image</label>
+            <input type="file" class="form-control" name='imgImage' id="ImageInput">
+        </div>
+        <div class="text-center mt-5">
+            <button class="btn btn-primary">Add</button>
+        </div>
+        
+    </form>
+</div>
+
+
+{% endblock %}
